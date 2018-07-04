@@ -1,3 +1,6 @@
+# Latex Makefile using latexmk
+# Modified by Dogukan Cagatay <dcagatay@gmail.com>
+# Originally from : http://tex.stackexchange.com/a/40759
 LATEX=pdflatex
 # Use -synctex=1 for sync with PDF viewer and Editor
 LATEXOPT=--shell-escape
@@ -8,12 +11,13 @@ NONSTOP=--interaction=batchmode
 BUILDDIR=builddir
 
 LATEXMK=latexmk
-LATEXMKOPT=-bibtex -pdf -outdir=$(BUILDDIR) -use-make \
-			-pdflatex="$(LATEX) $(LATEXOPT) $(NONSTOP)"
-CONTINUOUS=-pvc
+LATEXMKOPT=-bibtex -pdf -outdir=$(BUILDDIR) \
+			-pdflatex="$(LATEX) $(LATEXOPT) $(NONSTOP)" \
+			-use-make
+# CONTINUOUS=-pvc
 
-MAIN=main
-SOURCES=$(MAIN).tex Makefile
+# Change only the variable below to the name of the main tex file.
+PROJNAME=main
 # FIGURES := $(shell find images/* -type f)
 
 # You want $(LATEXMK) to *always* run, because make does not have all the info.
@@ -23,33 +27,14 @@ SOURCES=$(MAIN).tex Makefile
 
 # The first rule in a Makefile is the one executed by default ("make"). It
 # should always be the "all" rule, so that "make" and "make all" are identical.
-all: $(MAIN).pdf
+all: $(PROJNAME).pdf
 
-####################
-# CUSTOM BUILD RULES
-####################
-
-# In case you didn't know, '$@' is a variable holding the name of the target,
-# and '$<' is a variable holding the (first) dependency of a rule.
-# "raw2tex" and "dat2tex" are just placeholders for whatever custom steps
-# you might have.
-
-%.tex: %.raw
-	./raw2tex $< > $@
-
-%.tex: %.dat
-	./dat2tex $< > $@
-
-######################
-# MAIN $(LATEXMK) RULE
-######################
-
-# pdf tells $(LATEXMK) to generate PDF directly (instead of DVI).
-# pdflatex="" tells $(LATEXMK) to call a specific backend with specific options.
+# `-pdf' tells $(LATEXMK) to generate PDF directly (instead of DVI).
+# `-pdflatex' tells $(LATEXMK) to call a specific backend with specific options.
 # use-make tells $(LATEXMK) to call make for generating missing files.
 
-$(MAIN).pdf: $(MAIN).tex
-	$(LATEXMK) $(LATEXMKOPT) $(MAIN)
+$(PROJNAME).pdf: $(PROJNAME).tex
+	$(LATEXMK) $(LATEXMKOPT) $<
 
 clean:
 	$(LATEXMK) -c -outdir=$(BUILDDIR)

@@ -1,43 +1,19 @@
 \documentclass[12pt,twoside]{report}
+%% More here https://www.sharelatex.com/learn/Management_in_a_large_project#Importing_files
 \usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
-\usepackage[utf8]{inputenc}
-\usepackage{graphicx}
+\usepackage{tcpstyle}
+
 \graphicspath{ {images/} }
-
-\usepackage{caption}
-\usepackage{subcaption}
-
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-
-\usepackage{booktabs} % for Table
-\usepackage[
-	backend=biber,
-	% style=ieee,
-	style=alphabetic,
-	% sorting=none
-]{biblatex}
-\usepackage{biblatex}
 \addbibresource{references.bib}
-
-\fancyhead{}
-\fancyhead[RO,LE]{Thesis Title}
-\fancyfoot{}
-\fancyfoot[LE,RO]{\thepage}
-\fancyfoot[LO,CE]{Chapter \thechapter}
-\fancyfoot[CO,RE]{Author Name}
-
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
 
 \title{Thesis Title}
 \author{Author Name}
 \date{Day Month Year}
 
+\includeonly{chapters/introduction}
+
 \begin{document}
-
 	\input{titlepage}
-
 	\input{abstract}
 
 	\chapter*{Dedication}
@@ -50,38 +26,29 @@
 	I want to thanks anyone ...
 
 	\tableofcontents
-
 	\listoffigures
-
 	\listoftables
 
 	\nocite{*} % Show all Bib-entries
-	%\pagestyle{plain}
+	\pagestyle{plain}
 	\printbibliography[
 		heading=bibintoc,
 	]
 
-	\clearpage
-	\chapter*{Introduction}
-	\input{chapters/introduction}
+	% \clearpage
+	\include{chapters/introduction} % Sometimes error, change \chapter* to \chapter
 
-	\chapter{Chapter One Title}
-	\input{chapters/01}
+	\include{chapters/01}
 
-	\chapter{Chapter Two Title}
-	\input{chapters/02}
+	\include{chapters/02}
 
-	\chapter{Chapter Three Title}
-	\input{chapters/03}
+	\include{chapters/03}
 
-	\chapter{Chapter Four Title}
-	\input{chapters/04}
+	\include{chapters/04}
 
-	\chapter{Conclusion}
-	\input{chapters/conclusion}
+	\include{chapters/conclusion}
 
 	\appendix
-	\chapter{Appendix Title}
-	\input{chapters/appendix}
+	\include{chapters/appendix}
 
 \end{document}
