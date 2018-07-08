@@ -21,13 +21,25 @@
 
 %%%%%%%%%%%%%%%%%%%%%
 %% BIBLIOGRAPHY style
-\RequirePackage[
+\PassOptionsToPackage{
+	% hyperref=true,
+	% url=false,
+	% isbn=false,
+	backref=true,
+	% citereset=chapter,
+	% maxcitenames=3,
+	% maxbibnames=100,
+	% block=none,
 	backend=biber,
 	style=ieee,
 	% style=alphabetic,
 	% sorting=none
-]{biblatex}
+}{biblatex}
+\RequirePackage{biblatex}
 
+%%%%%%%%%%%%%%%%%%
+%% REFERENCE style
+\RequirePackage{cleveref} % Use see~\Cref{fig:foo} instead of see Figure~\ref{fig:foo}.
 \emergencystretch=1em % for resolve overfull References
 
 %% Easily spotting overfull hboxes in the document
@@ -38,27 +50,30 @@
 %%%%%%%%%%%%%%%%%%%%%
 %% HEADER styles
 \RequirePackage{fancyhdr}
-\setlength{\headheight}{15pt}
+
+%% One way
+% \setlength{\headheight}{15pt}
 \pagestyle{fancy}
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-\renewcommand{\sectionmark}[1]{\markright{#1}{}}
-\fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[RE]{\textbf{\textit{\nouppercase{\leftmark}}}}
-\fancyhead[LO]{\textbf{\textit{\nouppercase{\rightmark}}}}
+% \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+% \renewcommand{\sectionmark}[1]{\markright{#1}{}}
+% \fancyhf{}
+% \fancyhead[LE,RO]{\thepage}
+% \fancyhead[RE]{\textbf{\textit{\nouppercase{\leftmark}}}}
+% \fancyhead[LO]{\textbf{\textit{\nouppercase{\rightmark}}}}
 
-% \fancyhead{}
-% \fancyhead[RO,LE]{Thesis Title}
-% \fancyfoot{}
-% \fancyfoot[LE,RO]{\thepage}
-% \fancyfoot[LO,CE]{Chapter \thechapter}
-% \fancyfoot[CO,RE]{Author Name}
-
+%% Another way
 \fancypagestyle{plain}{ %
-	\fancyhf{} % remove everything
+	% \fancyhf{} % remove everything
 	\renewcommand{\headrulewidth}{0.4pt} % remove header lines by set to 0
 	\renewcommand{\footrulewidth}{0.4pt}
 }
+
+\fancyhead{}
+\fancyhead[RO,LE]{Thesis Title}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,CE]{Chapter \thechapter}
+\fancyfoot[CO,RE]{Author Name}
 
 %makes available the commands \proof, \qedsymbol and \theoremstyle
 \RequirePackage{amsthm}
